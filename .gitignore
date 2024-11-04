@@ -1,3 +1,6 @@
 */.ipynb_checkpoints
 */.jupyter
 */data/*
+*/*.tgz
+*/*.pth
+*/__pycache__/*
