@@ -66,7 +66,8 @@ class TrainingResult():
         self.current_epoch_result = EpochResult()
 	
     def add_validation_result(self , validation_step_result):
-    	self.current_epoch_result.validation_result_list.append(validation_step_result)
+        print(validation_step_result.acc)
+        self.current_epoch_result.validation_result_list.append(validation_step_result)
 
     def add_train_result(self , train_step_result):
     	self.current_epoch_result.train_result_list.append(train_step_result)
@@ -101,6 +102,7 @@ class EpochResult():
         self.train_result_list = []
 		
     def add_validation_result(self , validation_step_result):
+        print(validation_step_result.acc)
         self.validation_result_list.append(validation_step_result)
 
     def add_train_result(self , train_step_result):
@@ -130,7 +132,20 @@ class EpochResult():
 
 
 def draw_training_result(result):
-    accuracies = [each_epoch_result.val_accuracy for each_epoch_result in result.epoch_val_result_list]
-    plt.plot(accuracies,'-x')
+    accuracies_validation = [each_epoch_result.val_accuracy for each_epoch_result in result.epoch_val_result_list]
+    loss_validation = [each_epoch_result.val_loss for each_epoch_result in result.epoch_val_result_list]
+    loss_train = [each_epoch_result.train_loss for each_epoch_result in result.epoch_val_result_list]
+    
+    plt.plot(accuracies_validation,'-x')
     plt.xlabel('epoch')
     plt.ylabel('accuracy')
+    plt.show()
+
+    plt.plot(loss_validation,'-x' , label = "Loss Validation")
+    plt.plot(loss_train,'-x' , label = "Loss Train")
+    
+    plt.xlabel('epoch')
+    plt.ylabel('loss')
+    plt.legend(["Validation" , "Training"])
+    plt.show()
+
